@@ -1,10 +1,12 @@
-// server.js
-var http = require('http')
-, nko = require('nko')('6coPfJMuWg55y54B');
+var ejs = require('ejs')
+, nko = require('nko')('6coPfJMuWg55y54B')
+, express = require('express');
 
-var app = http.createServer(function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('Hello, World');
+app = express.createServer();
+app.set('view engine', 'ejs');
+
+app.get('/', function (req, res) {
+  res.render('index')
 });
 
 app.listen(parseInt(process.env.PORT) || 3333);
