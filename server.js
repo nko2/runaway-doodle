@@ -4,6 +4,9 @@ var ejs = require('ejs')
 
 app = express.createServer();
 app.set('view engine', 'ejs');
+app.configure(function(){
+  app.use(express.static(__dirname + '/static'));
+});
 
 app.get('/', function (req, res) {
   res.render('index')
