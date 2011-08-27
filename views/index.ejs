@@ -1,6 +1,13 @@
 <div id="sketch-pad-wrap" class="center">
 <canvas id="sketch-pad" width="500" height="350">Please use Google Chrome, Firefox, or Internet Explorer 9</canvas>
-<div id="color-picker"></div>
+
+<div id="sketch-options" class="small grey">
+  <div id="color-picker" class="left"></div>
+  <div id="size-slider-wrap" class="right align-right">
+  Brush size (<span id="current-brush-size" class="bold black">2</span>) <div id="size-slider" class="right"></div>
+  </div>
+</div>
+
 </div>
 
 <!-- TEMPLATES -->
@@ -18,7 +25,7 @@ var current_color = '#000000';
 $(document).ready(function(){
   canvas_thing = new CanvasDrawing("sketch-pad", {color: current_color});
   init_color_picker();
-  
+  init_size_slider();
 });
 
 init_color_picker = function(){
@@ -39,6 +46,19 @@ init_color_picker = function(){
     })
     
     $("#color-picker").append(color);
+  });
+};
+
+init_size_slider = function(){
+  $("#size-slider").slider({
+    min:2,
+    max:20,
+    change: function(e, ui) {
+      canvas_thing.setOption("lineWidth", ui.value);
+    },
+    slide: function(e, ui) {
+      $("#current-brush-size").text(ui.value);
+    }
   });
 };
 

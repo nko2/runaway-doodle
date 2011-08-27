@@ -31,7 +31,7 @@ function CanvasDrawing(canvasId, options) {
 		};
 	
 	// replace defaults with user defined options
-	cd.options = defaults.merge(options);
+	cd.options = cd_merge(defaults, options);
 	
 	// init canvas
 	cd.canvas = document.getElementById(canvasId);
@@ -313,15 +313,10 @@ CanvasDrawing.prototype.clearCanvas = function() {
 	cd.context.fillRect(0, 0, cd.canvas.width, cd.canvas.height);
 };
 
-/**
- * Merge two arrays. Any properties in b will replace the same properties in
- * a. New properties from b will be added to a.
- * 
- * @param object {Object}
- */
-Object.prototype.merge = function(object) {
+
+cd_merge = function(object1, object2) {
 	
-	var prop, a = this, b = object;
+	var prop, a = object1, b = object2;
 
 	if (typeof b === "undefined") { b = {}; }
 

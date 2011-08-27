@@ -47,13 +47,22 @@ table {
 	border-spacing: 0;
 }
 
-.align-center{text-align:center}
+body{font:100% arial}
+
+.align-center{text-align:center}.align-right{text-align:right}
 .center{margin:0 auto}
-.left{float:left}
+.left{float:left}.right{float:right}
+.bold{font-weight:700}
+.grey{color:#777}.black{color:#000}
+.small{font-size:13px}.medium{font-size:15px}
 
 #sketch-pad-wrap{width:500px;margin-top:15px}
 #sketch-pad{cursor:crosshair;border:1px solid #ccc;}
 
-#color-picker{margin:10px 0}
+#sketch-options{margin:10px 0}
+
 .color-wrap{padding:2px;margin-right:3px}
 .color{width:15px;height:15px;}
+
+#size-slider-wrap{width:55%}
+#size-slider{width:60%;margin-left:15px}
