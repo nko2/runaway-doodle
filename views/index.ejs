@@ -1,12 +1,55 @@
-<<<<<<< HEAD
 <div id="sketch-pad-wrap" class="center">
 <canvas id="sketch-pad" width="500" height="350">Please use Google Chrome, Firefox, or Internet Explorer 9</canvas>
+<div id="color-picker"></div>
 </div>
-<script type="text/javascript">
-$(document).ready(function(){
-  new CanvasDrawing("sketch-pad");
-});
+
+<!-- TEMPLATES -->
+<script id="color" type="text/html">
+  <div class="color-wrap left color{{css_class}}" style="border:1px solid #{{border_hex}}">
+    <div class="color" style="background:#{{bg_hex}}"></div>
+  </div>
 </script>
-=======
-hello waarudo
->>>>>>> limonada
+
+<!-- MAIN JS STUFF -->
+<script type="text/javascript">
+var canvas_thing;
+var current_color = '#000000';
+
+$(document).ready(function(){
+  canvas_thing = new CanvasDrawing("sketch-pad", {color: "#"+current_color});
+  init_color_picker();
+  
+});
+
+init_color_picker = function(){
+  _.each(['000000','ff0000','00ff00','0000ff','ffff00','00ffff','ff00ff'], function(color_hex) {
+    var is_current_color = current_color == "#"+color_hex;
+    var current_border_hex = is_current_color ? '000' : 'bbb';
+    var color = ich.color({
+      bg_hex: color_hex,
+      border_hex: current_border_hex,
+      css_class: is_current_color ? '-current' : ''
+    });
+    color.click(function() {
+      if($(this).hasClass("color-current")) {return;}
+      $(".color-current").attr("style","border:1px solid #bbb").removeClass("color-current");
+      $(this).addClass("color-current").attr("style","border:1px solid #000");
+      current_color = rgb2hex($(".color-current").find(".color").css("background-color"));
+      console.log(current_color);
+      canvas_thing.setOption("color", current_color);
+    })
+    
+    $("#color-picker").append(color);
+  });
+};
+
+function rgb2hex(rgb) {
+  // from:
+  // http://stackoverflow.com/questions/1740700/get-hex-value-rather-than-rgb-value-using-jquery
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  function hex(x) {
+    return ("0" + parseInt(x).toString(16)).slice(-2);
+  }
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+</script>

@@ -49,6 +49,11 @@ table {
 
 .align-center{text-align:center}
 .center{margin:0 auto}
+.left{float:left}
 
 #sketch-pad-wrap{width:500px;margin-top:15px}
 #sketch-pad{cursor:crosshair;border:1px solid #ccc;}
+
+#color-picker{margin:10px 0}
+.color-wrap{padding:2px;margin-right:3px}
+.color{width:15px;height:15px;}
