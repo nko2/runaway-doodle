@@ -35,7 +35,6 @@ init_color_picker = function(){
       $(".color-current").attr("style","border:1px solid #bbb").removeClass("color-current");
       $(this).addClass("color-current").attr("style","border:1px solid #000");
       current_color = rgb2hex($(".color-current").find(".color").css("background-color"));
-      console.log(current_color);
       canvas_thing.setOption("color", current_color);
     })
     
