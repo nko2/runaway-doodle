@@ -19,7 +19,7 @@ else {
 }
 
 app.get('/', function (req, res) {
-  res.render('index')
+  res.render('index');
 });
 
 app.listen(parseInt(process.env.PORT) || 3333);
