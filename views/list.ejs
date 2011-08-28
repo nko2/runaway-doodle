@@ -1,0 +1,15 @@
+<ol id="image-list">
+<% index = 0; %>
+<% images.forEach(function(image){%>
+  <% if((index % 3) == 0){%>
+    <div class="clear"></div>
+  <%}%>
+  <li class="li-lol left small grey">
+  <b><a href="/<%= image.id %>"><%= image.phrase %></a></b><br>
+  by <span class="black"><%= image.name %></span><br>
+  <a href="/<%= image.id %>"><img width="190" src="<%= image.data %>" alt="<%= image.phrase %>" title="<%= image.phrase %>"></a>
+  </li>
+  <% index ++; %>
+<% }); %>
+<div class="clear"></div>
+</ol>

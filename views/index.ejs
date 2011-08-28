@@ -14,7 +14,6 @@
 
 <div class="clear"></div><br>
 <span style="float:left">Time left:&nbsp </span><div id="timer" style="float:left"></div>&nbsp s
-<br><br><a href="/">View the doodle gallery.</a>
 </div>
 
 <!-- TEMPLATES -->
@@ -99,8 +98,8 @@ function doneDoodle(){
 
   var answer = confirm("Save your doodle in the online gallery?");  
   if (answer){
-    var name = prompt("Enter your name:","Guest");
-    //send_img_to_db();
+    var name = prompt("Enter your name:","Anonymous");
+    send_img_to_db(name);
     alert("Doodle saved in our archives.");
   }
   else{
@@ -122,10 +121,10 @@ function genNewWords(){
   init_timer();
 };
 
-send_img_to_db = function(){
+send_img_to_db = function(name){
   var oCanvas = document.getElementById("sketch-pad");
-  var strDataURI = oCanvas.toDataURL(); 
-  jQuery.post('/insert-image', {image: strDataURI});
+  var strDataURI = oCanvas.toDataURL();
+  jQuery.post('/insert-image', {image: strDataURI, phrase: $("#phrase").text(), name: name});
 };
 
 function rgb2hex(rgb) {
