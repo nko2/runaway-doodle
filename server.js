@@ -18,7 +18,7 @@ else {
   mongo.connect('mongodb://localhost/nko-shoujo');
 }
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
   res.render('index');
 });
 
