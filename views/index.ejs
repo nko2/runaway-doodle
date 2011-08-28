@@ -87,18 +87,19 @@ function updateTimer(){
   timerSeconds = timerSeconds -= 1; 
   $("#timer").text(timerSeconds);
   if (timerSeconds <= 0){
-    clearInterval(t42);
     alert("Time's up!");
     doneDoodle();
   }
 };
 
 function doneDoodle(){
+  clearInterval(t42);
+  timerSeconds = 75;
+
   var answer = confirm("Save your doodle in the online gallery?");  
   if (answer){
     //send_img_to_db();
     alert("Doodle saved in our archives.");
-    init_timer();  //this is just so we don't get negative time/annoying prompts
     //we need to redirect to gallery page here
   }
   else{
@@ -106,7 +107,6 @@ function doneDoodle(){
     var answer2 = confirm("Doodle again?");
     if (answer2){
       genNewWords();
-      init_timer();
     }
     else{
       clearInterval(t42);
