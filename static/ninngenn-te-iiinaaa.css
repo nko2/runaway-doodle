@@ -55,6 +55,7 @@ body{font:100% arial}
 .bold{font-weight:700}
 .grey{color:#777}.black{color:#000}
 .small{font-size:13px}.medium{font-size:15px}
+.clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
 
 #sketch-pad-wrap{width:500px;margin-top:15px}
 #sketch-pad{cursor:crosshair;border:1px solid #ccc;}

@@ -1,4 +1,8 @@
+
 <div id="sketch-pad-wrap" class="center">
+Draw a picture based on these words:
+<div id="phrase" class="center"></div>
+<input type="button" name="skippy" value="skip" onclick="genNewWords();">
 <canvas id="sketch-pad" width="500" height="350">Please use Google Chrome, Firefox, or Internet Explorer 9</canvas>
 
 <div id="sketch-options" class="small grey">
@@ -7,6 +11,9 @@
   Brush size (<span id="current-brush-size" class="bold black">2</span>) <div id="size-slider" class="right"></div>
   </div>
 </div>
+
+<div class="clear"></div><br>
+<span style="float:left">Time left:&nbsp </span><div id="timer" style="float:left"></div>&nbsp s
 
 </div>
 
@@ -21,11 +28,20 @@
 <script type="text/javascript">
 var canvas_thing;
 var current_color = '#000000';
+var t42 = 0;
+var timerSeconds = 75;
+$("#timer").text(timerSeconds);
 
 $(document).ready(function(){
   canvas_thing = new CanvasDrawing("sketch-pad", {color: current_color});
   init_color_picker();
   init_size_slider();
+  init_timer();
+});
+
+
+$.getJSON('random-phrase', function(data){
+  $("#phrase").text(data.phrase);
 });
 
 init_color_picker = function(){
@@ -60,6 +76,29 @@ init_size_slider = function(){
       $("#current-brush-size").text(ui.value);
     }
   });
+};
+
+init_timer = function(){
+  timerSeconds = 75;
+  t42 = setInterval("updateTimer()", 1000);
+};
+
+function updateTimer(){
+  timerSeconds = timerSeconds -= 1; 
+  $("#timer").text(timerSeconds);
+  if (timerSeconds <= 0){
+    clearInterval(t42);
+    //alert("Time's up!");
+    //send_img_to_db();
+  }
+};
+
+function genNewWords(){
+  clearInterval(t42);
+  $.getJSON('random-phrase', function(data){
+  $("#phrase").text(data.phrase);
+  });
+  init_timer();
 };
 
 send_img_to_db = function(){
