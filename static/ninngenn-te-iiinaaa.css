@@ -2,7 +2,8 @@ body{font:100% arial;background:#fff}
 a{color:#08d;text-decoration:none}a:hover{text-decoration:underline}
 button{cursor:pointer}
 input[type="text"]{border:1px solid #ccc;padding:3px 2px}
-.wrap{width:600px;padding:20px 25px}
+.wrap,.wrap-nopad{width:600px}
+.wrap{padding:20px 25px}
 #main-wrap{background:#eee;;border:1px solid #ccc}
 
 .border-radius{border-radius:3px;-moz-border-radius:3px}
@@ -16,6 +17,10 @@ b,.bold{font-weight:700}
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
 .pointer{cursor:pointer}
 .button{padding:6px 10px}
+
+#header{padding:10px 20px}
+#logo{font-size:21px;font-family:'Delius Swash Caps'}
+#nav{padding-top:6px}
 
 #sketch-pad-wrap{width:500px;margin-top:15px}
 #sketch-pad{cursor:crosshair;border:1px solid #ccc;}
