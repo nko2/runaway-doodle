@@ -17,6 +17,7 @@ b,.bold{font-weight:700}
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
 .pointer{cursor:pointer}
 .button{padding:6px 10px}
+.no-underline{text-decoration:none}.no-underline:hover{text-decoration:none}
 
 #header{padding:10px 20px}
 #logo{font-size:21px;font-family:'Delius Swash Caps'}
