@@ -29,9 +29,10 @@ Finished early?<br><button id="done-early" class="">I'm Done Doodling</button>
   <div id="time-up-play-again" class="bold upper">Time&#8217;s up!&nbsp;&nbsp;&nbsp;<a class="close" href="#">Play again &rarr;</a></div>
   <div id="save-doodle" class="border-radius">
     <div class="medium">Optional: Post your doodle to the gallery?</div>
-    <div class="post-img-form">
-    <input id="post-img-name" type="text" placeholder="Enter your name" class="medium"><button id="post-img">Post</button>
-    </div>
+    <form id="post-img-form">
+    <input id="post-img-name" type="text" placeholder="Enter your name" class="medium">
+    <input type="submit" value="Post">
+    </form>
   </div>
 </div>
 </script>
@@ -46,7 +47,7 @@ $(document).ready(function(){
   init_color_picker();
   init_size_slider();
   new_phrase();
-  $(document).bind('afterReveal.facebox', bind_post_img);
+  $(document).bind('afterReveal.facebox', bind_post_img_form);
   $(document).bind('afterClose.facebox', reset_game);
   reset_game();
   $("#done-early").click(doneDoodle);
@@ -119,14 +120,15 @@ function reset_game(){
   canvas_thing.clearCanvas();
 };
 
-bind_post_img = function() {
-  $("#post-img").click(function(){
+bind_post_img_form = function() {
+  $("#post-img-form").submit(function(e){
     var name = $("#post-img-name").val();
     if(!name){
       name = "Anonymous";
     }
     send_img_to_db(name);
     $("#save-doodle").html("Saving...");
+    e.preventDefault();
   });
 };
 
