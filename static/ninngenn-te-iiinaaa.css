@@ -31,7 +31,7 @@ b,.bold{font-weight:700}
 .color-wrap:hover{background:#777}
 .color{width:18px;height:18px;}
 
-#size-slider-wrap{width:55%}
+#size-slider-wrap{width:55%;margin-top:6px}
 #size-slider{width:60%;margin-left:15px}
 
 #options{margin-top:15px}
