@@ -1,5 +1,6 @@
 body{font:100% arial;background:#fff}
 a{color:#08d;text-decoration:none}a:hover{text-decoration:underline}
+button{cursor:pointer}
 input[type="text"]{border:1px solid #ccc;padding:3px 2px}
 .wrap{width:600px;padding:20px 25px}
 #main-wrap{background:#eee;;border:1px solid #ccc}
@@ -10,9 +11,11 @@ input[type="text"]{border:1px solid #ccc;padding:3px 2px}
 .left{float:left}.right{float:right}
 b,.bold{font-weight:700}
 .grey{color:#777}.black{color:#000}
-.small{font-size:11px}.medium{font-size:15px}
+.small{font-size:11px}.medium{font-size:15px}.large{font-size:21px}.x-large{font-size:31px}
 .upper{text-transform:uppercase}
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
+.pointer{cursor:pointer}
+.button{padding:6px 10px}
 
 #sketch-pad-wrap{width:500px;margin-top:15px}
 #sketch-pad{cursor:crosshair;border:1px solid #ccc;}
@@ -20,10 +23,13 @@ b,.bold{font-weight:700}
 #sketch-options{margin:10px 0}
 
 .color-wrap{padding:2px;margin-right:3px}
-.color{width:15px;height:15px;}
+.color-wrap:hover{background:#777}
+.color{width:18px;height:18px;}
 
 #size-slider-wrap{width:55%}
 #size-slider{width:60%;margin-left:15px}
+
+#options{margin-top:15px}
 
 #metadata{padding-bottom:10px}
 #image-list .li-lol{margin-bottom:15px;width:200px}

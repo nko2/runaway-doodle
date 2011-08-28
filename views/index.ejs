@@ -1,35 +1,36 @@
+<div id="instructions" class="large align-center grey">
+   You have <span id="timer" class="bold"></span> seconds to draw a picture of
+   <div id="phrase" class="x-large bold black"></div>
+</div>
 <div id="sketch-pad-wrap" class="center">
-<span style="float:left">Draw a picture based on these words:</span><br>
-<div id="phrase" class="bold black" style="float:left"></div>
-<input type="button" name="skippy" value="skip" onclick="genNewWords();" class="right"><br><br>
-<input type="button" name="done" value="I'm done!" onclick="doneDoodle();">
 <canvas id="sketch-pad" width="500" height="350">Please use Google Chrome, Firefox, or Internet Explorer 9</canvas>
 
 <div id="sketch-options" class="small grey">
   <div id="color-picker" class="left"></div>
   <div id="size-slider-wrap" class="right align-right">
-  Brush size (<span id="current-brush-size" class="bold black">2</span>) <div id="size-slider" class="right"></div>
+  Brush size (<span id="current-brush-size" class="bold black">10</span>) <div id="size-slider" class="right"></div>
   </div>
 </div>
-
-<div class="clear"></div><br>
-<span style="float:left">Time left:&nbsp </span><div id="timer" style="float:left"></div> s
+<div class="clear"></div>
+<div id="options" class="align-center small">
+Finished early?<br><button id="done-early" class="">I'm Done Drawing</button>
+</div>
 </div>
 
 <!-- TEMPLATES -->
 <script id="color" type="text/html">
-  <div class="color-wrap left color{{css_class}}" style="border:1px solid #{{border_hex}}">
+  <div class="color-wrap left color{{css_class}} pointer" style="border:1px solid #{{border_hex}}">
     <div class="color" style="background:#{{bg_hex}}"></div>
   </div>
 </script>
 
 <script id="done" type="text/html">
 <div class="align-center">
-  <div id="time-up-play-again" class="bold upper">Time up!&nbsp;&nbsp;&nbsp;<a class="close" href="#">Play again &rarr;</a></div>
+  <div id="time-up-play-again" class="bold upper">Time&#8217;s up!&nbsp;&nbsp;&nbsp;<a class="close" href="#">Play again &rarr;</a></div>
   <div id="save-doodle" class="border-radius">
-    <div class="medium">Save your doodle in the online gallery?</div>
+    <div class="medium">Optional: Post your doodle to the gallery?</div>
     <div class="post-img-form">
-    <input id="post-img-name" type="text" placeholder="Enter your name" class="medium"><button id="post-img">Save</button>
+    <input id="post-img-name" type="text" placeholder="Enter your name" class="medium"><button id="post-img">Post</button>
     </div>
   </div>
 </div>
@@ -41,23 +42,25 @@ var canvas_thing,t42,timerSeconds;
 var current_color = '#000000';
 
 $(document).ready(function(){
-  canvas_thing = new CanvasDrawing("sketch-pad", {color: current_color});
+  canvas_thing = new CanvasDrawing("sketch-pad", {color: current_color, lineWidth: 10});
   init_color_picker();
   init_size_slider();
   new_phrase();
   $(document).bind('afterReveal.facebox', bind_post_img);
   $(document).bind('afterClose.facebox', reset_game);
   reset_game();
+  $("#done-early").click(doneDoodle);
 });
 
 new_phrase = function() {
+  $("#phrase").text("");
   $.getJSON('random-phrase', function(data){
     $("#phrase").text(data.phrase);
   });
 };
 
 init_color_picker = function(){
-  _.each(['000000','ff0000','00ff00','0000ff','ffff00','00ffff','ff00ff'], function(color_hex) {
+  _.each(['000000','ff0000','00ff00','0000ff','ffff00','00ffff','ff00ff', 'ffffff'], function(color_hex) {
     var is_current_color = current_color == "#"+color_hex;
     var current_border_hex = is_current_color ? '000' : 'bbb';
     var color = ich.color({
@@ -79,8 +82,9 @@ init_color_picker = function(){
 
 init_size_slider = function(){
   $("#size-slider").slider({
-    min:2,
-    max:20,
+    min:1,
+    max:50,
+    value: 10,
     change: function(e, ui) {
       canvas_thing.setOption("lineWidth", ui.value);
     },
