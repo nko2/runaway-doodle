@@ -25,22 +25,22 @@
 
 <!-- MAIN JS STUFF -->
 <script type="text/javascript">
-var canvas_thing;
+var canvas_thing,t42,timerSeconds;
 var current_color = '#000000';
-var t42 = 0;
-var timerSeconds = 75;
-$("#timer").text(timerSeconds);
 
 $(document).ready(function(){
+  canvas_thing = new CanvasDrawing("sketch-pad", {color: current_color});
   init_color_picker();
   init_size_slider();
+  new_phrase();
   init_timer();
 });
 
-
-$.getJSON('random-phrase', function(data){
-  $("#phrase").text(data.phrase);
-});
+new_phrase = function() {
+  $.getJSON('random-phrase', function(data){
+    $("#phrase").text(data.phrase);
+  });
+};
 
 init_color_picker = function(){
   _.each(['000000','ff0000','00ff00','0000ff','ffff00','00ffff','ff00ff'], function(color_hex) {
@@ -77,10 +77,9 @@ init_size_slider = function(){
 };
 
 init_timer = function(){
-  timerSeconds = 75;
+  timerSeconds = 60;
+  $("#timer").text(timerSeconds);
   t42 = setInterval("updateTimer()", 1000);
-  //reset drawing
-  canvas_thing = new CanvasDrawing("sketch-pad", {color: current_color});
 };
 
 function updateTimer(){
@@ -108,17 +107,16 @@ function doneDoodle(){
 
     var answer2 = confirm("Doodle again?");
     if (answer2){
-      genNewWords();   
+      reset_game();   
     }
 
 };
 
-function genNewWords(){
+function reset_game(){
   clearInterval(t42);
-  $.getJSON('random-phrase', function(data){
-  $("#phrase").text(data.phrase);
-  });
+  new_phrase();
   init_timer();
+  canvas_thing.clearCanvas();
 };
 
 send_img_to_db = function(name){
