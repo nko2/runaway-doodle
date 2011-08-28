@@ -8,6 +8,7 @@ var ejs = require('ejs')
 app = express.createServer();
 app.set('view engine', 'ejs');
 app.configure(function(){
+  app.use(express.bodyParser());
   app.use(express.static(__dirname + '/static'));
 });
 
@@ -35,6 +36,11 @@ app.get('/random-phrase', function(req, res){
   });
   
   res.json({phrase: random_words[0]+" "+random_words[1]+" "+random_words[2]});
+});
+
+app.post('/insert-image', function(req, res){
+  console.log(req.body.image);
+  res.send("ok");
 });
 
 app.listen(parseInt(process.env.PORT) || 3333);

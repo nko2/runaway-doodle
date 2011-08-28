@@ -62,6 +62,12 @@ init_size_slider = function(){
   });
 };
 
+send_img_to_db = function(){
+  var oCanvas = document.getElementById("sketch-pad");
+  var strDataURI = oCanvas.toDataURL(); 
+  jQuery.post('/insert-image', {image: strDataURI});
+};
+
 function rgb2hex(rgb) {
   // from:
   // http://stackoverflow.com/questions/1740700/get-hex-value-rather-than-rgb-value-using-jquery
