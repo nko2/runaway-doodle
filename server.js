@@ -78,7 +78,7 @@ app.get('/:id', function(req,res){
   Image.findById(req.params.id, function(err, image){
     if(err){res.send("not found");}
     else{
-      res.render("show", {image: image});
+      res.render("show", {image: image, host: req.header('host') });
     }
   });
 });

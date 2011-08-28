@@ -2,5 +2,7 @@
   <div id="metadata" class="grey">
   <b class="black"><%= image.phrase %></b> by <span class="black"><%= image.name %></span>
   </div>
-  <img src="<%= image.data %>" alt="<%= image.phrase %>" title="<%= image.phrase %>">
+  <img class="doodle-img" src="<%= image.data %>" alt="<%= image.phrase %>" title="<%= image.phrase %>">
+  <br><br>
+  <span class="small">Share this link:</span> <input id="share-link" class="highlight-on-focus" type="text" value="http://<%= host %>/<%= image.id %>">
 </div>
