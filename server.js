@@ -51,8 +51,9 @@ app.get('/random-phrase', function(req, res){
 });
 
 app.post('/insert-image', function(req, res){
-  new Image({data: req.body.image, phrase: req.body.phrase, name: req.body.name}).save();
-  res.send("ok");
+  var image = new Image({data: req.body.image, phrase: req.body.phrase, name: req.body.name});
+  image.save();
+  res.send(image.id);
 });
 
 app.get('/latest', function(req, res){

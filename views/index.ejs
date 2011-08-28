@@ -13,7 +13,7 @@
 </div>
 
 <div class="clear"></div><br>
-<span style="float:left">Time left:&nbsp </span><div id="timer" style="float:left"></div>&nbsp s
+<span style="float:left">Time left:&nbsp </span><div id="timer" style="float:left"></div> s
 </div>
 
 <!-- TEMPLATES -->
@@ -21,6 +21,18 @@
   <div class="color-wrap left color{{css_class}}" style="border:1px solid #{{border_hex}}">
     <div class="color" style="background:#{{bg_hex}}"></div>
   </div>
+</script>
+
+<script id="done" type="text/html">
+<div class="align-center">
+  <div id="time-up-play-again" class="bold upper">Time up!&nbsp;&nbsp;&nbsp;<a class="close" href="#">Play again &rarr;</a></div>
+  <div id="save-doodle" class="border-radius">
+    <div class="medium">Save your doodle in the online gallery?</div>
+    <div class="post-img-form">
+    <input id="post-img-name" type="text" placeholder="Enter your name" class="medium"><button id="post-img">Save</button>
+    </div>
+  </div>
+</div>
 </script>
 
 <!-- MAIN JS STUFF -->
@@ -33,7 +45,9 @@ $(document).ready(function(){
   init_color_picker();
   init_size_slider();
   new_phrase();
-  init_timer();
+  $(document).bind('afterReveal.facebox', bind_post_img);
+  $(document).bind('afterClose.facebox', reset_game);
+  reset_game();
 });
 
 new_phrase = function() {
@@ -77,52 +91,47 @@ init_size_slider = function(){
 };
 
 init_timer = function(){
-  timerSeconds = 60;
+  timerSeconds = 75;
   $("#timer").text(timerSeconds);
   t42 = setInterval("updateTimer()", 1000);
 };
 
 function updateTimer(){
-  timerSeconds = timerSeconds -= 1; 
+  timerSeconds--;
   $("#timer").text(timerSeconds);
   if (timerSeconds <= 0){
-    alert("Time's up!");
     doneDoodle();
   }
 };
 
 function doneDoodle(){
   clearInterval(t42);
-  timerSeconds = 75;
-
-  var answer = confirm("Save your doodle in the online gallery?");  
-  if (answer){
-    var name = prompt("Enter your name:","Anonymous");
-    send_img_to_db(name);
-    alert("Doodle saved in our archives.");
-  }
-  else{
-    alert("Doodle was not saved.");
-  }
-
-    var answer2 = confirm("Doodle again?");
-    if (answer2){
-      reset_game();   
-    }
-
+  $.facebox(ich.done());
 };
 
 function reset_game(){
-  clearInterval(t42);
   new_phrase();
   init_timer();
   canvas_thing.clearCanvas();
 };
 
+bind_post_img = function() {
+  $("#post-img").click(function(){
+    var name = $("#post-img-name").val();
+    if(!name){
+      name = "Anonymous";
+    }
+    send_img_to_db(name);
+    $("#save-doodle").html("Saving...");
+  });
+};
+
 send_img_to_db = function(name){
   var oCanvas = document.getElementById("sketch-pad");
   var strDataURI = oCanvas.toDataURL();
-  jQuery.post('/insert-image', {image: strDataURI, phrase: $("#phrase").text(), name: name});
+  jQuery.post('/insert-image', {image: strDataURI, phrase: $("#phrase").text(), name: name}, function(data){
+    $("#save-doodle").html("Saved! <a href='/"+data+"'>View your doodle &rarr;</a>");
+  });
 };
 
 function rgb2hex(rgb) {

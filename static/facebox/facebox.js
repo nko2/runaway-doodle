@@ -93,7 +93,6 @@
       <div class="popup"> \
         <div class="content"> \
         </div> \
-        <a href="#" class="close"><img src="/facebox/closelabel.png" title="close" class="close_image" /></a> \
       </div> \
     </div>'
     },
@@ -108,7 +107,7 @@
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
 
       $('#facebox').css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
+        top:	getPageScroll()[1] + (getPageHeight() / 16),
         left:	$(window).width() / 2 - 205
       }).show()
 
@@ -127,6 +126,7 @@
       $('#facebox .body').children().fadeIn('normal')
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').width() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
+      $('#facebox .close').click($.facebox.close)
     },
 
     close: function() {
@@ -186,7 +186,6 @@
       preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
     })
 
-    $('#facebox .close').click($.facebox.close)
     $('#facebox .close_image').attr('src', $.facebox.settings.closeImage)
   }
 
@@ -275,7 +274,7 @@
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
+      //.click(function() { $(document).trigger('close.facebox') })
       .fadeIn(200)
     return false
   }

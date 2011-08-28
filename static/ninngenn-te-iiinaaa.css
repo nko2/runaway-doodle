@@ -1,5 +1,6 @@
 body{font:100% arial;background:#fff}
 a{color:#08d;text-decoration:none}a:hover{text-decoration:underline}
+input[type="text"]{border:1px solid #ccc;padding:3px 2px}
 .wrap{width:600px;padding:20px 25px}
 #main-wrap{background:#eee;;border:1px solid #ccc}
 
@@ -10,6 +11,7 @@ a{color:#08d;text-decoration:none}a:hover{text-decoration:underline}
 b,.bold{font-weight:700}
 .grey{color:#777}.black{color:#000}
 .small{font-size:11px}.medium{font-size:15px}
+.upper{text-transform:uppercase}
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
 
 #sketch-pad-wrap{width:500px;margin-top:15px}
@@ -26,3 +28,7 @@ b,.bold{font-weight:700}
 #metadata{padding-bottom:10px}
 #image-list .li-lol{margin-bottom:15px;width:200px}
 #image-list img{margin-top:6px}
+
+#time-up-play-again{margin:15px 0;}
+#save-doodle{margin:20px 10px 10px;padding:10px;background:#eee;border:1px solid #ccc}
+#post-img-name{width:60%}
