@@ -57,11 +57,20 @@ app.post('/insert-image', function(req, res){
 });
 
 app.get('/latest', function(req, res){
-  Image.find({}, [], {sort: [['created_at','descending']], limit: 20}, function(err, images){
-    if(err){res.send("bad");}
-    else{
-      res.render('list', {images: images});
-    }
+  var per_page = 9;
+  var page = req.query.page ? parseInt(req.query.page) : 1;
+  var prev_page = page > 1 ? page - 1 : false;
+  
+  Image.find({}, function(err, all_images){
+    var total_pages = Math.ceil(all_images.length / per_page);
+    var next_page = page < total_pages ? page + 1 : false;
+    
+    Image.find({}, [], {sort: [['created_at','descending']], limit: per_page, skip: per_page*(page-1)}, function(err, images){
+      if(err){res.send("bad");}
+      else{
+        res.render('list', {images: images, page: page, prev_page: prev_page, next_page: next_page, total_pages: total_pages});
+      }
+    });
   });
 });
 

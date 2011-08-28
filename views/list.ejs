@@ -7,9 +7,17 @@
   <li class="li-lol left small grey">
   <b><a href="/<%= image.id %>"><%= image.phrase %></a></b><br>
   by <span class="black"><%= image.name %></span><br>
-  <a href="/<%= image.id %>"><img width="190" src="<%= image.data %>" alt="<%= image.phrase %>" title="<%= image.phrase %>"></a>
+  <a href="/<%= image.id %>"><img width="180" src="<%= image.data %>" alt="<%= image.phrase %>"></a>
   </li>
   <% index ++; %>
 <% }); %>
 <div class="clear"></div>
+<div class="align-center grey">
+  <% if(prev_page) {%><a href="/latest?page=<%= prev_page %>"><% }%>
+  &larr; prev page
+  <% if(prev_page) {%></a><%}%>
+  &nbsp;&nbsp;<span class="black"><%= page %> / <%= total_pages %></span>&nbsp;&nbsp;
+  <% if(next_page) {%><a href="/latest?page=<%= next_page %>"><%}%>
+  next page &rarr;
+  <% if(next_page) {%></a><%}%>
 </ol>
