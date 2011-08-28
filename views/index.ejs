@@ -98,9 +98,19 @@ function doneDoodle(){
   if (answer){
     //send_img_to_db();
     alert("Doodle saved in our archives.");
+    init_timer();  //this is just so we don't get negative time/annoying prompts
+    //we need to redirect to gallery page here
   }
   else{
     alert("Doodle was not saved.");
+    var answer2 = confirm("Doodle again?");
+    if (answer2){
+      genNewWords();
+      init_timer();
+    }
+    else{
+      clearInterval(t42);
+    }
   }
 };
 
