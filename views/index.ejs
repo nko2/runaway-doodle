@@ -1,8 +1,9 @@
 
 <div id="sketch-pad-wrap" class="center">
-Draw a picture based on these words:
-<div id="phrase" class="center"></div>
-<input type="button" name="skippy" value="skip" onclick="genNewWords();">
+<span style="float:left">Draw a picture based on these words:</span><br>
+<div id="phrase" class="bold black" style="float:left"></div>
+<input type="button" name="skippy" value="skip" onclick="genNewWords();" class="right"><br><br>
+<input type="button" name="done" value="I'm done!" onclick="doneDoodle();">
 <canvas id="sketch-pad" width="500" height="350">Please use Google Chrome, Firefox, or Internet Explorer 9</canvas>
 
 <div id="sketch-options" class="small grey">
@@ -14,7 +15,6 @@ Draw a picture based on these words:
 
 <div class="clear"></div><br>
 <span style="float:left">Time left:&nbsp </span><div id="timer" style="float:left"></div>&nbsp s
-
 </div>
 
 <!-- TEMPLATES -->
@@ -33,7 +33,6 @@ var timerSeconds = 75;
 $("#timer").text(timerSeconds);
 
 $(document).ready(function(){
-  canvas_thing = new CanvasDrawing("sketch-pad", {color: current_color});
   init_color_picker();
   init_size_slider();
   init_timer();
@@ -81,6 +80,8 @@ init_size_slider = function(){
 init_timer = function(){
   timerSeconds = 75;
   t42 = setInterval("updateTimer()", 1000);
+  //reset drawing
+  canvas_thing = new CanvasDrawing("sketch-pad", {color: current_color});
 };
 
 function updateTimer(){
@@ -88,9 +89,17 @@ function updateTimer(){
   $("#timer").text(timerSeconds);
   if (timerSeconds <= 0){
     clearInterval(t42);
-    //alert("Time's up!");
-    //send_img_to_db();
+    alert("Time's up!");
+    doneDoodle();
   }
+};
+
+function doneDoodle(){
+  
+//  if (){
+    //send_img_to_db();
+//  }
+   
 };
 
 function genNewWords(){
